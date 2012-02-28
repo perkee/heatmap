@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.min.js"></script>
+<link rel="stylesheet" type="text/css" href="heatmap.css" />
+<script type="text/javascript" src="./functions.js"></script>
+<script type="text/javascript" src="./heatmap.js"></script>
+</head>
+<body>
+  <header>
+    <h1>A heatmapper</h1>
+  </header>
+  <section>
+  <div id="heatmap">
+      <table>
+        <thead>
+          <tr>
+            <th>index</th>
+            <th>1</th>
+            <th>2</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="label">1</td>
+            <td contenteditable="true">0</td>
+            <td contenteditable="true">1</td>
+          </tr>
+          <tr>
+            <td class="label">2</td>
+            <td contenteditable="true">2</td>
+            <td contenteditable="true">3</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div id="options">
+      <a href="#" id="toggleNumbers">toggle numbers</a>
+    </div>
+  </section>
+  <section>
+    <form>
+      <fieldset>
+        <textarea></textarea>
+        <input type="submit" title="map these"/>
+      </fieldset>
+    </form>
+  </section>
+</body>
+</html>
