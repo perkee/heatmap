@@ -2,7 +2,11 @@ $(document).ready(function(){
   $('<p>I\'m a test paragraph.</p>').css('color','red').appendTo('#options');
   first = parseFloat($('td[contenteditable="true"]:first').text());
   range = {'max':first, 'min':first};
-  flags = {'wasExtreme':false};
+  flags = 
+  {
+    'wasExtreme'     : false,
+    'showingNumbers' : true,
+  };
   rows = 2;
   cols = 2;
   
@@ -19,22 +23,37 @@ $(document).ready(function(){
 //handle raw text***************************************************
   $('form').submit(function(event)
   {
+    event.preventDefault();
     var lines = $('textarea:first').val().split('\n');
     $.each(lines, function(i,v)
     {
-      lines[i] = v.split(' ');
+      lines[i] = v.split(/[^0-9.-]+/);
     });
-    addRows(lines.length - $('#heatmap > table > tbody > tr').length);
-    echo(lines[0].length +' '+ $('#heatmap > table > tbody > tr:first > td').length);
-    addCols(lines[0].length - $('#heatmap > table > tbody > tr:first > td').length + 1);
+    $('#heatmap > table > thead > tr').html('<th>index</th><th>1</th>');
+    $('#heatmap > table > tbody').html('<tr><td class="label">1</td><td contenteditable="true">0</td>');
+    $('#heatmap > table').css({'height':'121px','width':'121px'});
+    $('#heatmap > table > tbody > tr > td[contenteditable="true"]').selectOnFocus();
+    $('#heatmap').css(
+    {
+      'height':121 + $('#plusrow').height(),
+      'width': 121 + $('#pluscol').width()
+    });
+    rows = 1;
+    cols = 1;
+    addCols(lines[0].length - 1);
+    addRows(lines.length - 1);
+    //echo(lines.length +' '+ lines[0].length);
     $('#heatmap > table > tbody > tr').each(function(row)
     {
       $(this).children('td[contenteditable="true"]').each(function(column)
       {
-        echo(row + ' ' + column);
+        //echo(row + ' ' + column);
+        //echo(lines[row][column]);
+        $(this).text(lines[row][column]);
       });
     });
-    event.preventDefault();
+    findRange();
+    paintCells();
     return false;
   });
 //add a row*********************************************************
@@ -49,12 +68,17 @@ $(document).ready(function(){
 //show & hide numbers****************************************************
   $('#toggleNumbers').click(function()
   {
-    $('td[contenteditable="true"]').css('color',function(index,value)
+    flags.showingNumbers = !flags.showingNumbers;
+    if(!flags.showingNumbers)
     {
-      if($(this).css('color') === 'rgb(0, 0, 0)' || $(this).css('color') === 'black')
+      $('td[contenteditable="true"]').css('color',function(index,value)
+      {
         return $(this).css('background-color');
-      else
-        return 'rgb(0, 0, 0)';
-    });
+      });
+    }
+    else
+    {
+      $('td[contenteditable="true"]').css('color','black');
+    }
   });
 });

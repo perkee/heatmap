@@ -10,16 +10,17 @@ function addRows(n)
   {
     return;
   }
-  var $newCells = '';
+  var newCells = '';
   for(var i = 0; i < n; i++)
-  {
-    $newCells += '<tr><td class="label">'+ (++rows) + '</td>';
+  { 
+    rows++;
+    newCells = '<tr><td class="label">'+ rows + '</td>';
     for(var j = 0; j < cols; j++)
     {
-      $newCells += '<td contenteditable="true">0</td>';
+      newCells += '<td contenteditable="true">0</td>';
     }
-    $newCells += '</tr>';
-    $($newCells).appendTo('#heatmap > table > tbody');
+    newCells += '</tr>';
+    $(newCells).appendTo('#heatmap > table > tbody:first');
     $('#heatmap > table > tbody > tr:last > td[contenteditable="true"]').selectOnFocus();
   }
   //$('tr:last').after($newCells);
