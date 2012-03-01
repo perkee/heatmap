@@ -1,5 +1,4 @@
 $(document).ready(function(){
-  $('<p>I\'m a test paragraph.</p>').css('color','red').appendTo('#options');
   first = parseFloat($('td[contenteditable="true"]:first').text());
   range = {'max':first, 'min':first};
   flags = 
@@ -9,17 +8,15 @@ $(document).ready(function(){
   };
   rows = 2;
   cols = 2;
-  
+  canvasCellSize = 20;
   $('table').after('<a id="plusrow">+</a><a id="pluscol">+</a>');
   $('#heatmap').css({
                       'width'  : $('#heatmap').width()  + $('#pluscol').width() ,
                       'height' : $('#heatmap').height() + $('#plusrow').height()
                     });
+  $('td[contenteditable="true"]').selectOnFocus();
   findRange();
   paintCells();
-//cell blur and focus
-  //fixFocus($('td[contenteditable="true"]'));
-  $('td[contenteditable="true"]').selectOnFocus();
 //handle raw text***************************************************
   $('form').submit(function(event)
   {

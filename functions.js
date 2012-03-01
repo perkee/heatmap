@@ -3,6 +3,40 @@ var range;
 var flags;
 var rows;
 var cols;
+var canvasCellSize;
+
+function paintCells()
+{
+
+  if(range.min == range.max)
+  {
+    $('td[contenteditable="true"]').css('background-color','white');
+    console.log('all cells equal cannot heatmap');
+    return;
+  }
+  var canvas = $('#canvas canvas').get(0);
+  canvas.setAttribute('width',  canvasCellSize * cols);
+  canvas.setAttribute('height', canvasCellSize * rows);
+  var ctx = canvas.getContext("2d");
+  var startX;
+  var startY;
+  $('tbody tr').each(function(row)
+  {
+    startY = canvasCellSize * row;
+    var row = ( 1 + $('tbody tr').index($(this)) );
+    $(this).children('td[contenteditable="true"]').each(function(col)
+    {
+      //max should be 0
+      //min should be 240
+      var hue = 240 - 240 * (parseFloat($(this).text()) - range.min)/(range.max - range.min);
+      var bgstring = 'hsl(' + hue + ',100%,50%)';
+      $(this).css({'background-color': bgstring});
+      startX = canvasCellSize * col;
+      ctx.fillStyle = bgstring;
+      ctx.fillRect(startX, startY, canvasCellSize, canvasCellSize);
+    });
+  });
+}
 
 function addRows(n)
 {
@@ -13,8 +47,7 @@ function addRows(n)
   var newCells = '';
   for(var i = 0; i < n; i++)
   { 
-    rows++;
-    newCells = '<tr><td class="label">'+ rows + '</td>';
+    newCells = '<tr><td class="label">'+ (++rows) + '</td>';
     for(var j = 0; j < cols; j++)
     {
       newCells += '<td contenteditable="true">0</td>';
@@ -127,29 +160,6 @@ function findRange()
   });  
 }
 
-function paintCells()
-{
-
-  if(range.min == range.max)
-  {
-    $('td[contenteditable="true"]').css('background-color','white');
-    console.log('all cells equal cannot heatmap');
-    return;
-  }
-
-  $('tbody tr').each(function()
-  {
-    var row = ( 1 + $('tbody tr').index($(this)) );
-    $(this).children('td[contenteditable="true"]').each(function()
-    {
-      //max should be 0
-      //min should be 240
-      var hue = 240 - 240 * (parseFloat($(this).text()) - range.min)/(range.max - range.min);
-      var bgstring = 'hsl(' + hue + ',100%,50%)';
-      $(this).css({'background-color': bgstring});
-    });
-  });
-}
 
 function SelectText(element)//element is a JS handle, not a jQ object
 {
