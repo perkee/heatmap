@@ -24,7 +24,7 @@ $(document).ready(function(){
     var lines = $('textarea:first').val().split('\n');
     $.each(lines, function(i,v)
     {
-      lines[i] = v.split(/[^0-9.-]+/);
+      lines[i] = v.trim().split(/[^0-9.-]+/);
     });
     $('#heatmap > table > thead > tr').html('<th>index</th><th>1</th>');
     $('#heatmap > table > tbody').html('<tr><td class="label">1</td><td contenteditable="true">0</td>');
