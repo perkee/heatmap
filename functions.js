@@ -36,6 +36,8 @@ function paintCells()
       ctx.fillRect(startX, startY, canvasCellSize, canvasCellSize);
     });
   });
+  var img = canvas.toDataURL("image/png");
+  $('#image img').get(0).src = img;
 }
 
 function addRows(n)
