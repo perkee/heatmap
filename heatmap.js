@@ -8,15 +8,21 @@ $(document).ready(function(){
   };
   rows = 2;
   cols = 2;
-  canvasCellSize = 20;
   $('table').after('<a id="plusrow">+</a><a id="pluscol">+</a>');
   $('#heatmap').css({
                       'width'  : $('#heatmap').width()  + $('#pluscol').width() ,
                       'height' : $('#heatmap').height() + $('#plusrow').height()
                     });
   $('td[contenteditable="true"]').selectOnFocus();
+  $('#tabBar a').click(function(event)
+  {
+    event.preventDefault();
+    $('#tabbedViews div').hide();
+    $($(this).attr('href')).show();
+  });
   findRange();
   paintCells();
+  $('#tabBar a:last').click();
 //handle raw text***************************************************
   $('form').submit(function(event)
   {
@@ -63,8 +69,9 @@ $(document).ready(function(){
     addCols(1);
   });
 //show & hide numbers****************************************************
-  $('#toggleNumbers').click(function()
+  $('#toggleNumbers').click(function(event)
   {
+    event.preventDefault();
     flags.showingNumbers = !flags.showingNumbers;
     if(!flags.showingNumbers)
     {

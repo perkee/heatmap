@@ -3,7 +3,6 @@ var range;
 var flags;
 var rows;
 var cols;
-var canvasCellSize;
 
 function paintCells()
 {
@@ -14,8 +13,8 @@ function paintCells()
     console.log('all cells equal cannot heatmap');
     return;
   }
+  var canvasCellSize = 300 / cols;
   var canvas = $('#canvas canvas').get(0);
-  canvas.setAttribute('width',  canvasCellSize * cols);
   canvas.setAttribute('height', canvasCellSize * rows);
   var ctx = canvas.getContext("2d");
   var startX;

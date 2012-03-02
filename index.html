@@ -34,23 +34,34 @@
         </tbody>
       </table>
     </div>
-    <div id="options">
-      <a href="#" id="toggleNumbers">toggle numbers</a>
-    </div>
+  </section>
+  <section id="tabbedViews">
+    <ul id="tabBar">
+        <li><a href="#canvas">Canvas</a></li>
+        <li><a href="#image">Image</a></li>
+        <li><a href="#plainText">Plain Text</a></li>
+    </ul>
     <div id="canvas">
-      <canvas height="0" width="0"></canvas>
+      <canvas height="0" width="290"></canvas>
     </div>
     <div id="image">
       <img src=""/>
     </div>
+    <div id="plainText">
+      <form>
+        <fieldset>
+          <textarea type="number"></textarea>
+          <input type="submit"/>
+        </fieldset>
+      </form>
+    </div>
   </section>
   <section>
-    <form>
-      <fieldset>
-        <textarea type="number"></textarea>
-        <input type="submit"/>
-      </fieldset>
-    </form>
+    <div id="options">
+      <ul>
+        <li><a href="#" id="toggleNumbers">toggle numbers</a></li>
+      </ul>
+    </div>
   </section>
 </body>
 </html>
