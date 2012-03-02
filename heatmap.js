@@ -1,4 +1,5 @@
 $(document).ready(function(){
+  tableCellSize = 60;
   first = parseFloat($('td[contenteditable="true"]:first').text());
   range = {'max':first, 'min':first};
   flags = 
@@ -23,6 +24,30 @@ $(document).ready(function(){
   findRange();
   paintCells();
   $('#tabBar a:last').click();
+// size buttons
+  $('#increaseCellSize').click(function(event)
+  {
+    event.preventDefault();
+    tableCellSize++;
+    tableCellSizeChanged();
+  });
+  $('#decreaseCellSize').click(function(event)
+  {
+    event.preventDefault();
+    tableCellSize--;
+    tableCellSizeChanged();
+  });
+  $('#cellSize').focus(function()
+  {
+    SelectText($(this).get(0));
+  }).mouseup(function(event)
+  {
+    event.preventDefault();
+  }).blur(function()
+  {
+    tableCellSize = parseInt($(this).text());
+    tableCellSizeChanged();
+  });
 //handle raw text***************************************************
   $('form').submit(function(event)
   {

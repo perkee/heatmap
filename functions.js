@@ -3,6 +3,24 @@ var range;
 var flags;
 var rows;
 var cols;
+var tableCellSize;
+
+function tableCellSizeChanged()
+{
+  $('#cellSize').text(tableCellSize);
+  $('td, th').css({'width': tableCellSize, 'height': tableCellSize});         
+  $('#heatmap table').css({
+                      'width'  : cols * tableCellSize + 1 ,
+                      'height' : rows * tableCellSize + 1
+                    });;         
+  $('#heatmap table tr').css({
+                      'height' : tableCellSize
+                    });
+  $('#heatmap').css({
+                      'width'  : $('#heatmap table').width()  + $('#pluscol').width() ,
+                      'height' : $('#heatmap table').height() + $('#plusrow').height()
+                    });
+}
 
 function paintCells()
 {
